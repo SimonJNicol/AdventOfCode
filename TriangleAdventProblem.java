@@ -3,6 +3,7 @@
 // this instance.
 public class Day3 {
 	public static void main (String [] args) {
+		// it would probably be better to use a different scanner that doesn't rely on my machine's file pathing. 
 		Scanner s = new Scanner(new File(C:\cygwin64\home\code\input.txt));
  		int i = 0; 
 		int [] tris = new int [16384];
