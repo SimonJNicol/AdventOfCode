@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.*;
 public class TriangleAdventProblem {
 	public static void main (String [] args) {
-		// it would probably be better to use a different scanner that doesn't rely on my machine's file pathing. 
 		Scanner s = new Scanner("input.txt");
  		int i = 0; 
 		int [] tris = new int [16384];
