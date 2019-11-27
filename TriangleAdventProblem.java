@@ -1,4 +1,6 @@
 // I have been having trouble getting JDK to run properly on my machine, so I'm not sure if this will compile, but I think it does.
+// I chose not to use subroutines because we never have to use a loop or action more than once, which makes subroutines pointless in 
+// this instance.
 public class Day3 {
 	public static void main (String [] args) {
 		Scanner s = new Scanner(new File("input.txt"));
