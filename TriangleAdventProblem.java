@@ -15,7 +15,7 @@ public class Day3 {
 		int b = 1;
 		int c = 2;
 		while (w < 16384) {
-		if ( i[a] < i[b] + i[c] && i[b] < i[a] + i[c] && i[c] < i[a] + i[b]) {
+		if ( tris[a] < tris[b] + tris[c] && tris[b] < tris[a] + tris[c] && tris[c] < tris[a] + tris[b]) {
 		count++;
 		}
 		a += 3;
