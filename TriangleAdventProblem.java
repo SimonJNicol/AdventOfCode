@@ -3,7 +3,7 @@
 // this instance.
 public class Day3 {
 	public static void main (String [] args) {
-		Scanner s = new Scanner(new File(C:\cygwin65\home\code\input.txt));
+		Scanner s = new Scanner(new File(C:\cygwin64\home\code\input.txt));
  		int i = 0; 
 		int [] tris = new int [16384];
 		while(s.hasNextInt()) {
