@@ -6,9 +6,9 @@ public class Prob119 {
 	
  	public static void main (String[] args) throws IOException {
 		
-		String[] listing = reader();
-		int answer = checker(listing);
-		System.out.println(answer);
+		String[] listing = reader(); // reader class reads the input.txt file and stores each line in the string array listing
+		int answer = checker(listing); // checker applies the rules of the problem to the input file and returns the answer
+		System.out.println(answer); // Now that's a sexy main class
 
 	}
 		
@@ -36,10 +36,11 @@ public class Prob119 {
 		
 		return listing;
 	}
+
 	public static int checker(String[] listing) {
 	
 		int count = 0;
-		int[] temp2 = new int[listing.length];
+		int[] temp2 = new int[listing.length]; // this would have helped a lot for previous problems, keep in mind in future
 
 		for (int i = 0; i<listing.length; i++) {
 			
@@ -48,7 +49,7 @@ public class Prob119 {
 			
 		}
 		
-		return count;
+		return count; 
 
 	}
 }
