@@ -7,7 +7,8 @@ public class Prob119 {
  	public static void main (String[] args) throws IOException {
 		
 		String[] listing = reader();
-		System.out.println(listing[0]);
+		int answer = checker(listing);
+		System.out.println(answer);
 
 	}
 		
@@ -34,5 +35,25 @@ public class Prob119 {
    		}
 		
 		return listing;
+	}
+	public static int checker(String[] listing) {
+	
+		int count = 0;
+		int[] temp2 = new int[listing.length];
+
+		for (int i = 0; i<listing.length; i++) {
+			
+			temp2[i] = Integer.parseInt(listing[i]) / 3 - 2; // rounding will be automatically done by the type int
+
+		}
+		
+		for (int c = 0; c<temp2.length; c++) {
+		
+		count += temp2[c];
+
+		}
+
+		return count;
+
 	}
 }
