@@ -8,7 +8,7 @@ public class Prob119p2 {
 		
 		String[] listing = reader();
 		int answer = checker(listing);
-		System.out.println(answer);
+		System.out.println(answer); 
 
 	}
 		
@@ -36,6 +36,7 @@ public class Prob119p2 {
 		
 		return listing;
 	}
+
 	public static int checker(String[] listing) {
 	
 		int count = 0;
@@ -45,13 +46,15 @@ public class Prob119p2 {
 			
 			temp2[i] = Integer.parseInt(listing[i]) / 3 - 2; // rounding will be automatically done by the type int
 			count += temp2[i];
-			count += checker2(temp2[i], 0);
+			count += checker2(temp2[i], 0); // before this point everything is the same as part 1, 0 is passed as the starting
+							// value for count2 so we do not have to initialize it within the class. 
 			
 		}
 		
 		return count;
 
 	}
+
 	public static int checker2(int temp3, int count2) {
 
 		if (temp3 < 0)
@@ -59,7 +62,7 @@ public class Prob119p2 {
 		
 		temp3 = temp3 / 3 - 2;	
 
-		if (temp3 > 0)
+		if (temp3 > 0)		// this if makes sure we do not add any negative numbers, which was causing errors before
 			count2 += temp3;
 		
 		return checker2(temp3, count2);
