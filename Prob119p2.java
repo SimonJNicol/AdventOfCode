@@ -54,11 +54,14 @@ public class Prob119p2 {
 	}
 	public static int checker2(int temp3, int count2) {
 
-		if (temp3 <= 0)
+		if (temp3 < 0)
 			return count2;
 		
 		temp3 = temp3 / 3 - 2;	
-		count2 += temp3;
+
+		if (temp3 > 0)
+			count2 += temp3;
+		
 		return checker2(temp3, count2);
 
 	}
