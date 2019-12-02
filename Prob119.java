@@ -44,15 +44,10 @@ public class Prob119 {
 		for (int i = 0; i<listing.length; i++) {
 			
 			temp2[i] = Integer.parseInt(listing[i]) / 3 - 2; // rounding will be automatically done by the type int
-
+			count += temp2[i];
+			
 		}
 		
-		for (int c = 0; c<temp2.length; c++) {
-		
-		count += temp2[c];
-
-		}
-
 		return count;
 
 	}
