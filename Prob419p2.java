@@ -12,8 +12,6 @@ public class Prob419p2 {
 		System.out.println(answer); 
 
 	}
-		
-		// minus a couple changes, the reader class is copied from Ian's github.
 						
 	public static String reader () throws IOException {
         
@@ -46,7 +44,7 @@ public class Prob419p2 {
       
         boolean adjdig = false;
        
-        if (temp.charAt(0) == temp.charAt(1) && temp.charAt(2) != temp.charAt(1) ||
+        if (temp.charAt(0) == temp.charAt(1) && temp.charAt(2) != temp.charAt(1) || //don't judge my conditionals
             temp.charAt(1) == temp.charAt(2) && temp.charAt(0) != temp.charAt(1) && temp.charAt(3) != temp.charAt(2) ||
             temp.charAt(2) == temp.charAt(3) && temp.charAt(1) != temp.charAt(2) && temp.charAt(4) != temp.charAt(3) || 
             temp.charAt(3) == temp.charAt(4) && temp.charAt(2) != temp.charAt(3) && temp.charAt(5) != temp.charAt(4) || 
