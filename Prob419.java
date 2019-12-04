@@ -59,9 +59,9 @@ public class Prob419 {
             Character.getNumericValue(temp.charAt(1)) < Character.getNumericValue(temp.charAt(2)) &&
             Character.getNumericValue(temp.charAt(2)) < Character.getNumericValue(temp.charAt(3)) &&
             Character.getNumericValue(temp.charAt(3)) < Character.getNumericValue(temp.charAt(4)) && 
-            Character.getNumericValue(temp.charAt(4)) < Character.getNumericValue(temp.charAt(1))) {
+            Character.getNumericValue(temp.charAt(4)) < Character.getNumericValue(temp.charAt(5))) {
                 ascend = true;
-                System.out.println("ascend");
+                System.out.println(temp);
             } 
             if (ascend && adjdig) {
                 count++;
