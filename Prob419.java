@@ -50,19 +50,23 @@ public class Prob419 {
         for (int i = range[0]; i < range[1]; i++) {
             
             temp = Integer.toString(i);
-            if (temp.charAt(0) == temp.charAt(1) || temp.charAt(1) == temp.charAt(2) || 
+            //https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversions-in-java/
+
+            if (temp.charAt(0) == temp.charAt(1) || temp.charAt(1) == temp.charAt(2) || //don't judge me
             temp.charAt(2) == temp.charAt(3) || temp.charAt(3) == temp.charAt(4) || 
             temp.charAt(4) == temp.charAt(5)) {
                 adjdig = true;
             }
-            if (Character.getNumericValue(temp.charAt(0)) < Character.getNumericValue(temp.charAt(1)) && 
-            Character.getNumericValue(temp.charAt(1)) < Character.getNumericValue(temp.charAt(2)) &&
-            Character.getNumericValue(temp.charAt(2)) < Character.getNumericValue(temp.charAt(3)) &&
-            Character.getNumericValue(temp.charAt(3)) < Character.getNumericValue(temp.charAt(4)) && 
-            Character.getNumericValue(temp.charAt(4)) < Character.getNumericValue(temp.charAt(5))) {
+
+            if (Character.getNumericValue(temp.charAt(0)) <= Character.getNumericValue(temp.charAt(1)) && //seriously, no judging
+            Character.getNumericValue(temp.charAt(1)) <= Character.getNumericValue(temp.charAt(2)) &&
+            Character.getNumericValue(temp.charAt(2)) <= Character.getNumericValue(temp.charAt(3)) &&
+            Character.getNumericValue(temp.charAt(3)) <= Character.getNumericValue(temp.charAt(4)) && 
+            Character.getNumericValue(temp.charAt(4)) <= Character.getNumericValue(temp.charAt(5))) {
                 ascend = true;
-                System.out.println(temp);
             } 
+            //https://www.javatpoint.com/java-char-to-int
+
             if (ascend && adjdig) {
                 count++;
             }
