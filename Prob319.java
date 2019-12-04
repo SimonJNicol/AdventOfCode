@@ -73,9 +73,10 @@ public class Prob319 {
         for (int i = 0; i < dclist.length; i++) {
             switch (dclist[i].charAt(0)) {
                 case 'R':
-                    while (xc < xc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
+//                    while (xc < xc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
 //                        x[xc] = xc;
 //                        xc++;
+                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
                         x.add(count, xc);
                         y.add(count, yc);
                         xc++;
@@ -83,9 +84,10 @@ public class Prob319 {
                     }
                     break;
                 case 'L': 
-                    while (xc < xc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
+//                    while (xc < xc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
 //                        x[xc] = xc;
 //                        xc--;
+                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
                         x.add(count, xc);
                         y.add(count, yc);
                         xc--;
@@ -93,18 +95,20 @@ public class Prob319 {
                     }
                     break;
                 case 'U': 
-                    while (yc < yc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
+//                    while (yc < yc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
 //                        y[yc] = yc;
 //                        yc++;
+                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
                         x.add(count, xc);
                         y.add(count, yc);
                         yc++;
                         count++;
                     }
                 case 'D': 
-                    while (yc < yc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
+//                    while (yc < yc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
 //                        y[yc] = yc;
 //                        yc--;
+                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
                         x.add(count, xc);
                         y.add(count, yc);
                         yc--;
@@ -117,9 +121,10 @@ public class Prob319 {
         for (int i = 0; i < dclist2.length; i++) {
             switch (dclist2[i].charAt(0)) {
                 case 'R': 
-                    while (xc2 < xc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
+//                    while (xc2 < xc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
 //                        x[xc2] = xc2;
 //                        xc2++;
+                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
                         x2.add(count2, xc2);
                         y2.add(count2, yc2);
                         xc2++;
@@ -127,9 +132,10 @@ public class Prob319 {
                     }
                     break;
                 case 'L': 
-                    while (xc2 < xc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
+//                    while (xc2 < xc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
 //                        x[xc2] = xc2;
 //                        xc2--;
+                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
                         x2.add(count2, xc2);
                         y2.add(count2, yc2);
                         xc2--;
@@ -137,22 +143,25 @@ public class Prob319 {
                     }
                     break;
                 case 'U': 
-                    while (yc2 < yc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
+//                    while (yc2 < yc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
 //                        y[yc2] = yc2;
 //                        yc2++;
+                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
                         x2.add(count2, xc2);
                         y2.add(count2, yc2);
                         yc2++;
                         count2++;
                     }
                 case 'D': 
-                    while (yc2 < yc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
+//                    while (yc2 < yc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
 //                        y[yc2] = yc2;
 //                        yc2--;
+                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
                         x2.add(count2, xc2);
                         y2.add(count2, yc2);
                         yc2--;
                         count2++;
+                        System.out.println("[" + x2.get(c) + "," + y2.get(c) + "]" + " " + count2);
                     }
             }
         }
@@ -162,11 +171,12 @@ public class Prob319 {
                 if (x.get(k) == x2.get(i) && y.get(k) == y2.get(i) && location[0] == 0 && location[1] == 0) {
                     location[0] = x.get(k); 
                     location[1] = y.get(k);
+                    System.out.println("POP " + location[0] + " " + location[1]);
                 }
                 else if (x.get(k) == x2.get(i) && y.get(k) == y2.get(i) && Math.abs(x.get(k) + y.get(k)) < Math.abs(location[0] + location[1])) {
                     location[0] = x.get(k);
                     location[1] = y.get(k);
-                    System.out.println("[" + location[0] + "," + location[1] + "]");
+                    System.out.println("Hit");
                 }
             }
         }
