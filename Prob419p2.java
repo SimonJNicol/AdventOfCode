@@ -1,6 +1,7 @@
 import java.io.*;
 import java.lang.String;
 import java.lang.Character;
+import java.util.Arrays;
 
 public class Prob419p2 {
 	
@@ -9,14 +10,15 @@ public class Prob419p2 {
 		String line = reader();
 		int answer = checker(line);
 		System.out.println(answer); 
+
 	}
 						
 	public static String reader () throws IOException {
         
 		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
-     		String line = br.readLine();
-		
+     	String line = br.readLine();
 		return line;
+        
 	}
 
     public static int checker (String line) {
@@ -27,45 +29,41 @@ public class Prob419p2 {
         int[] range = {Integer.parseInt(dclist[0]), Integer.parseInt(dclist[1])};
 
         for (int i = range[0]; i < range[1]; i++) {
-        	
-		temp = Integer.toString(i); //https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversions-in-java/
-		
-		if (adjcheck(temp) && asscheck(temp)) {
+            
+            temp = Integer.toString(i);
+            //https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversions-in-java/
+
+            if (adjcheck(temp) && asscheck(temp)) {
                 count++;
-            	}
+            }
         }
-        
-	return count;
+        return count;
     }
 
     public static boolean adjcheck (String temp) {
-      
-        boolean adjdig = false;
        
-        if (temp.charAt(0) == temp.charAt(1) && temp.charAt(2) != temp.charAt(1) || 
+        if (temp.charAt(0) == temp.charAt(1) && temp.charAt(2) != temp.charAt(1) || //don't judge my conditionals
             temp.charAt(1) == temp.charAt(2) && temp.charAt(0) != temp.charAt(1) && temp.charAt(3) != temp.charAt(2) ||
             temp.charAt(2) == temp.charAt(3) && temp.charAt(1) != temp.charAt(2) && temp.charAt(4) != temp.charAt(3) || 
             temp.charAt(3) == temp.charAt(4) && temp.charAt(2) != temp.charAt(3) && temp.charAt(5) != temp.charAt(4) || 
             temp.charAt(4) == temp.charAt(5) && temp.charAt(3) != temp.charAt(4)) {
-                adjdig = true; //this bool keeps track of whether the current number follows the adjacent digit rule 
+                return true; //this bool keeps track of whether the current number follows the adjacent digit rule 
             }
        
-        return adjdig;
+        return false;
     }
 
     public static boolean asscheck (String temp) {
-      
-        boolean ascend = false;
-        
+ 
         //https://www.javatpoint.com/java-char-to-int       
-        if (Character.getNumericValue(temp.charAt(0)) <= Character.getNumericValue(temp.charAt(1)) && 
+        if (Character.getNumericValue(temp.charAt(0)) <= Character.getNumericValue(temp.charAt(1)) && //seriously, no judging
             Character.getNumericValue(temp.charAt(1)) <= Character.getNumericValue(temp.charAt(2)) &&
             Character.getNumericValue(temp.charAt(2)) <= Character.getNumericValue(temp.charAt(3)) &&
             Character.getNumericValue(temp.charAt(3)) <= Character.getNumericValue(temp.charAt(4)) && 
             Character.getNumericValue(temp.charAt(4)) <= Character.getNumericValue(temp.charAt(5))) {
-                ascend = true; //this bool keeps track of whether the current number follows the ascending rule
+                return true; //this bool keeps track of whether the current number follows the ascending rule
             } 
         
-        return ascend;
+        return false;
     }
 }
