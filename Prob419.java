@@ -51,6 +51,7 @@ public class Prob419 {
             dclist[0].charAt(2) == dclist[0].charAt(3) || dclist[0].charAt(3) == dclist[0].charAt(4) || 
             dclist[0].charAt(4) == dclist[0].charAt(5)) {
                 adjdig = true;
+                System.out.println("adjdig");
             }
             if (Character.getNumericValue(dclist[0].charAt(0)) > Character.getNumericValue(dclist[0].charAt(1)) || 
             Character.getNumericValue(dclist[0].charAt(1)) > Character.getNumericValue(dclist[0].charAt(2)) || 
