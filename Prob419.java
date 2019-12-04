@@ -40,10 +40,8 @@ public class Prob419 {
 
     public static int checker (String[] listing) {
 
-        boolean adjdig = false;
-        boolean ascend = false;
-        String temp = "";
-        int count = 0;
+        String temp = ""; //stores the current number as a string for manipulation
+        int count = 0; //current number of applicable passwords
         String[] dclist = listing[0].split("-"); //https://www.geeksforgeeks.org/split-string-java-examples/
         int[] range = {Integer.parseInt(dclist[0]), Integer.parseInt(dclist[1])};
 
@@ -52,27 +50,39 @@ public class Prob419 {
             temp = Integer.toString(i);
             //https://www.geeksforgeeks.org/different-ways-for-integer-to-string-conversions-in-java/
 
-            if (temp.charAt(0) == temp.charAt(1) || temp.charAt(1) == temp.charAt(2) || //don't judge me
+            if (adjcheck(temp) && asscheck(temp)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static boolean adjcheck (String temp) {
+      
+        boolean adjdig = false;
+       
+        if (temp.charAt(0) == temp.charAt(1) || temp.charAt(1) == temp.charAt(2) || //don't judge me
             temp.charAt(2) == temp.charAt(3) || temp.charAt(3) == temp.charAt(4) || 
             temp.charAt(4) == temp.charAt(5)) {
-                adjdig = true;
+                adjdig = true; //this bool keeps track of whether the current number follows the adjacent digit rule 
             }
-
-            if (Character.getNumericValue(temp.charAt(0)) <= Character.getNumericValue(temp.charAt(1)) && //seriously, no judging
+       
+        return adjdig;
+    }
+    
+    public static boolean asscheck (String temp) {
+      
+        boolean ascend = false;
+        
+        //https://www.javatpoint.com/java-char-to-int       
+        if (Character.getNumericValue(temp.charAt(0)) <= Character.getNumericValue(temp.charAt(1)) && //seriously, no judging
             Character.getNumericValue(temp.charAt(1)) <= Character.getNumericValue(temp.charAt(2)) &&
             Character.getNumericValue(temp.charAt(2)) <= Character.getNumericValue(temp.charAt(3)) &&
             Character.getNumericValue(temp.charAt(3)) <= Character.getNumericValue(temp.charAt(4)) && 
             Character.getNumericValue(temp.charAt(4)) <= Character.getNumericValue(temp.charAt(5))) {
-                ascend = true;
+                ascend = true; //this bool keeps track of whether the current number follows the ascending rule
             } 
-            //https://www.javatpoint.com/java-char-to-int
-
-            if (ascend && adjdig) {
-                count++;
-            }
-            adjdig = false;
-            ascend = false;
-        }
-        return count;
+        
+        return ascend;
     }
 }
