@@ -42,23 +42,26 @@ public class Prob419 {
 
         boolean adjdig = false;
         boolean ascend = false;
+        String temp = "";
         int count = 0;
         String[] dclist = listing[0].split("-"); //https://www.geeksforgeeks.org/split-string-java-examples/
         int[] range = {Integer.parseInt(dclist[0]), Integer.parseInt(dclist[1])};
 
         for (int i = range[0]; i < range[1]; i++) {
-            if (dclist[0].charAt(0) == dclist[0].charAt(1) || dclist[0].charAt(1) == dclist[0].charAt(2) || 
-            dclist[0].charAt(2) == dclist[0].charAt(3) || dclist[0].charAt(3) == dclist[0].charAt(4) || 
-            dclist[0].charAt(4) == dclist[0].charAt(5)) {
+            
+            temp = Integer.toString(i);
+            if (temp.charAt(0) == temp.charAt(1) || temp.charAt(1) == temp.charAt(2) || 
+            temp.charAt(2) == temp.charAt(3) || temp.charAt(3) == temp.charAt(4) || 
+            temp.charAt(4) == temp.charAt(5)) {
                 adjdig = true;
-                System.out.println("adjdig");
             }
-            if (Character.getNumericValue(dclist[0].charAt(0)) > Character.getNumericValue(dclist[0].charAt(1)) || 
-            Character.getNumericValue(dclist[0].charAt(1)) > Character.getNumericValue(dclist[0].charAt(2)) || 
-            Character.getNumericValue(dclist[0].charAt(2)) > Character.getNumericValue(dclist[0].charAt(3)) || 
-            Character.getNumericValue(dclist[0].charAt(3)) > Character.getNumericValue(dclist[0].charAt(4)) || 
-            Character.getNumericValue(dclist[0].charAt(4)) > Character.getNumericValue(dclist[0].charAt(1))) {
+            if (Character.getNumericValue(temp.charAt(0)) < Character.getNumericValue(temp.charAt(1)) && 
+            Character.getNumericValue(temp.charAt(1)) < Character.getNumericValue(temp.charAt(2)) &&
+            Character.getNumericValue(temp.charAt(2)) < Character.getNumericValue(temp.charAt(3)) &&
+            Character.getNumericValue(temp.charAt(3)) < Character.getNumericValue(temp.charAt(4)) && 
+            Character.getNumericValue(temp.charAt(4)) < Character.getNumericValue(temp.charAt(1))) {
                 ascend = true;
+                System.out.println("ascend");
             } 
             if (ascend && adjdig) {
                 count++;
