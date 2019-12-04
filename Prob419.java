@@ -7,42 +7,27 @@ public class Prob419 {
 	
  	public static void main (String[] args) throws IOException {
 		
-		String[] listing = reader();
-		int answer = checker(listing);
+		String line = reader();
+		int answer = checker(line);
 		System.out.println(answer); 
 
 	}
 		
 		// minus a couple changes, the reader class is copied from Ian's github.
 						
-	public static String[] reader () throws IOException {
-		
-		int max_lines = 16384;
-   		String[] temp = new String[max_lines];
-   		int i=0;
-
-	   // https://stackoverflow.com/questions/5868369/how-to-read-a-large-text-file-line-by-line-using-java
-		
-		try(BufferedReader br = new BufferedReader(new FileReader("input.txt"))) {
-     		for(String line; (line = br.readLine()) != null; ) {
-     			temp[i] = line;
-       			i++;
-			}
-		}
-
-   		String[] listing = new String[i];
-   		for ( i=0; i<listing.length; i++ ) {
-   			listing[i] = temp[i];
-   		}
-		
-		return listing;
+	public static String reader () throws IOException {
+        
+		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+     	String line = br.readLine();
+		return line;
+        
 	}
 
-    public static int checker (String[] listing) {
+    public static int checker (String line) {
 
         String temp = ""; //stores the current number as a string for manipulation
         int count = 0; //current number of applicable passwords
-        String[] dclist = listing[0].split("-"); //https://www.geeksforgeeks.org/split-string-java-examples/
+        String[] dclist = line.split("-"); //https://www.geeksforgeeks.org/split-string-java-examples/
         int[] range = {Integer.parseInt(dclist[0]), Integer.parseInt(dclist[1])};
 
         for (int i = range[0]; i < range[1]; i++) {
@@ -69,7 +54,7 @@ public class Prob419 {
        
         return adjdig;
     }
-    
+
     public static boolean asscheck (String temp) {
       
         boolean ascend = false;
