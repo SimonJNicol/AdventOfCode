@@ -9,10 +9,10 @@ public class Prob319 {
  	public static void main (String[] args) throws IOException {
 		
 		String[] listing = reader();
-        String[] dclist = decrypter(listing, 0);
-        String[] dclist2 = decrypter(listing, 1);
+        String[] dclist = decrypter(listing, 0); //instruction set for wire 1
+        String[] dclist2 = decrypter(listing, 1); //instruction set for wire 2
 		int answer = distance(dclist, dclist2);
-		System.out.println(answer); 
+		System.out.println("The closest cross has a manhattan distance of: " + answer); 
 
 	}
 		
@@ -43,140 +43,100 @@ public class Prob319 {
     
     public static int distance (String[] dclist, String[] dclist2) {
 
-        int temp = 0; //use temp to iterate through the x and y arrays
-        int xc = 0;
-        int yc = 0;
-        int xc2 = 0;
-        int yc2 = 0;
-//        int cordsize = 0;
-        int count = 0;
-        int count2 = 0;
-        int[] location = {0,0};
-//        cordsize = asize(dclist, dclist2);
+        int xc = 0; //keeps track of x's value throughout each iteration of the loop
+        int yc = 0; // "" y's value
+        int xc2 = 0; // "" x2's value
+        int yc2 = 0; //"" y2's value
+        int instruction = 0; //stores the value of the current input direction
+        int[] location = {0,0}; //stores the location of the nearest cross
+        boolean horz = false; //identifies whether a line is horizontal or vertical
+        boolean vert = false;
 
-//        int[] x = new int[cordsize];
-//        int[] y = new int[cordsize];
-//        int[] x2 = new int[cordsize];
-//        int[] y2 = new int[cordsize];
-//        String x = "";
-//        String y = "";
-//        String x2 = "";
-//        String y2 = "";
-        // thought about using StringBuilder to store the arrays with dynamic sizing, but found a better option
-        //https://www.geeksforgeeks.org/list-interface-java-examples/
-
-        List<Integer> x = new ArrayList<Integer>();
-        List<Integer> y = new ArrayList<Integer>();
-        List<Integer> x2 = new ArrayList<Integer>();
-        List<Integer> y2 = new ArrayList<Integer>();
+        List<Integer> x = new ArrayList<Integer>(); //stores the x coordinate after each step is completed (corners) for wire 1
+        List<Integer> y = new ArrayList<Integer>(); // "" y coordinate "" for wire 1
+        List<Integer> x2 = new ArrayList<Integer>();// "" x2 coordinate "" for wire 2
+        List<Integer> y2 = new ArrayList<Integer>();// "" y2 coordinate "" for wire 2
 
         for (int i = 0; i < dclist.length; i++) {
+            
+            instruction = Integer.parseInt(dclist[i].substring(1, dclist[i].length()));
+            
             switch (dclist[i].charAt(0)) {
                 case 'R':
-//                    while (xc < xc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
-//                        x[xc] = xc;
-//                        xc++;
-                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
-                        x.add(count, xc);
-                        y.add(count, yc);
-                        xc++;
-                        count++;
-                    }
-                    break;
+                    xc += instruction;
+                    x.add(i, xc);
+                    y.add(i, yc);
+                break;
                 case 'L': 
-//                    while (xc < xc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
-//                        x[xc] = xc;
-//                        xc--;
-                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
-                        x.add(count, xc);
-                        y.add(count, yc);
-                        xc--;
-                        count++;
-                    }
+                    xc -= instruction;
+                    x.add(i, xc);
+                    y.add(i, yc);
                     break;
                 case 'U': 
-//                    while (yc < yc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
-//                        y[yc] = yc;
-//                        yc++;
-                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
-                        x.add(count, xc);
-                        y.add(count, yc);
-                        yc++;
-                        count++;
-                    }
+                    yc += instruction;
+                    x.add(i, xc);
+                    y.add(i, yc);
+                break;
                 case 'D': 
-//                    while (yc < yc + Integer.parseInt(dclist[i].substring(1, dclist[i].length()))) {
-//                        y[yc] = yc;
-//                        yc--;
-                    for (int c = 0; c < Integer.parseInt(dclist[i].substring(1, dclist[i].length())); c++) {
-                        x.add(count, xc);
-                        y.add(count, yc);
-                        yc--;
-                        count++;
-                    }
-                    break;
+                    yc -= instruction;
+                    x.add(i, xc);
+                    y.add(i, yc);
+                break;
             }
         }
-
         for (int i = 0; i < dclist2.length; i++) {
+            
+            instruction = Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
+            
             switch (dclist2[i].charAt(0)) {
-                case 'R': 
-//                    while (xc2 < xc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
-//                        x[xc2] = xc2;
-//                        xc2++;
-                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
-                        x2.add(count2, xc2);
-                        y2.add(count2, yc2);
-                        xc2++;
-                        count2++;
-                    }
-                    break;
+                case 'R':
+                    xc2 += instruction;
+                    x2.add(i, xc2);
+                    y2.add(i, yc2);
+                break;
                 case 'L': 
-//                    while (xc2 < xc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
-//                        x[xc2] = xc2;
-//                        xc2--;
-                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
-                        x2.add(count2, xc2);
-                        y2.add(count2, yc2);
-                        xc2--;
-                        count2++;
-                    }
+                    xc2 -= instruction;
+                    x2.add(i, xc2);
+                    y2.add(i, yc2);
                     break;
                 case 'U': 
-//                    while (yc2 < yc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
-//                        y[yc2] = yc2;
-//                        yc2++;
-                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
-                        x2.add(count2, xc2);
-                        y2.add(count2, yc2);
-                        yc2++;
-                        count2++;
-                    }
+                    yc2 += instruction;
+                    x2.add(i, xc2);
+                    y2.add(i, yc2);
+                break;
                 case 'D': 
-//                    while (yc2 < yc2 + Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()))) {
-//                        y[yc2] = yc2;
-//                        yc2--;
-                    for (int c = 0; c < Integer.parseInt(dclist2[i].substring(1, dclist2[i].length())); c++) {
-                        x2.add(count2, xc2);
-                        y2.add(count2, yc2);
-                        yc2--;
-                        count2++;
-                        System.out.println("[" + x2.get(c) + "," + y2.get(c) + "]" + " " + count2);
-                    }
+                    yc2 -= instruction;
+                    x2.add(i, xc2);
+                    y2.add(i, yc2);
+                break;
             }
         }
-        // iF yoU'rE rEaDinG thIs PlEASe HelP
-        for (int i = 0; i < x.size(); i++) {
-            for (int k = 0; k < x.size(); k++) {
-                if (x.get(k) == x2.get(i) && y.get(k) == y2.get(i) && location[0] == 0 && location[1] == 0) {
-                    location[0] = x.get(k); 
-                    location[1] = y.get(k);
-                    System.out.println("POP " + location[0] + " " + location[1]);
+        for (int i = 0; i < x.size()-1; i++) {
+            for (int c = 0; c < x.size()-1; c++) {
+        
+                if(c != 0 && x.get(c) == x.get(c+1)) {
+                    vert = true;
+                    horz = false;
                 }
-                else if (x.get(k) == x2.get(i) && y.get(k) == y2.get(i) && Math.abs(x.get(k) + y.get(k)) < Math.abs(location[0] + location[1])) {
-                    location[0] = x.get(k);
-                    location[1] = y.get(k);
-                    System.out.println("Hit");
+                else {
+                    vert = false;
+                    horz = true;
+                }
+                if(vert && between(x.get(c), x2.get(i+1), x2.get(i)) && between(y2.get(i), y.get(c+1), y.get(c))) {
+                    System.out.print("Cross at ");
+                    System.out.println("[ " + x.get(c) + " , " + y2.get(i) + " ]");
+                    if (x.get(c) + y2.get(i) < Math.abs(location[0]) + Math.abs(location[1]) || location[0] + location[1] == 0) {
+                        location[0] = x.get(c);
+                        location[1] = y2.get(i);
+                    }
+                }
+                else if(horz && between(y.get(c), y2.get(i+1), y2.get(i)) && between(x2.get(i), x.get(c+1), x.get(c))) {
+                    System.out.print("Cross at ");
+                    System.out.println("[ " + x2.get(i) + " , " + y.get(c) + " ]");
+                    if (y.get(c) + x2.get(i) < Math.abs(location[0]) + Math.abs(location[1]) || location[0] + location[1] == 0) {
+                        location[0] = x2.get(i);
+                        location[1] = y.get(c);
+                    }
                 }
             }
         }
@@ -187,34 +147,11 @@ public class Prob319 {
         String[] dclist = listing[wire].split(","); //https://www.geeksforgeeks.org/split-string-java-examples/
         return dclist;
     }
-
-/*    public static int asize (String[] dclist, String[] dclist2) {
-        int count = 0;
-        for (int i = 0; i < dclist.length; i++) {
-            switch(dclist[i].charAt(0)) {
-                case 'R':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-                case 'L':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-                case 'U':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-                case 'D':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-            }
-        }
-        for (int i = 0; i < dclist.length; i++) {
-            switch(dclist2[i].charAt(0)) {
-                case 'R':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-                case 'L':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-                case 'U':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-                case 'D':
-                    count += Integer.parseInt(dclist2[i].substring(1, dclist2[i].length()));
-            }
-        }
-    System.out.println(count);
-    return count;
-    } */
+    
+    public static boolean between (int n, int max, int min) {
+        if (n >= min && n <= max || n <= min && n >= max)
+            return true;
+        else 
+            return false;
+    }
 }
