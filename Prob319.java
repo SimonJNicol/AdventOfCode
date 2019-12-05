@@ -9,15 +9,13 @@ public class Prob319 {
  	public static void main (String[] args) throws IOException {
 		
 		String[] listing = reader();
-        String[] dclist = decrypter(listing, 0); //instruction set for wire 1
-        String[] dclist2 = decrypter(listing, 1); //instruction set for wire 2
-		int answer = distance(dclist, dclist2);
+		int answer = distance(decrypter(listing, 0), decrypter(listing, 1));
 		System.out.println("The closest cross has a manhattan distance of: " + answer); 
 
 	}
 		
 		// minus a couple changes, the reader class is copied from Ian's github.
-						
+
 	public static String[] reader () throws IOException {
 		
 		int max_lines = 16384;
@@ -114,15 +112,7 @@ public class Prob319 {
         for (int i = 0; i < x.size()-1; i++) {
             for (int c = 0; c < x.size()-1; c++) {
         
-                if(c != 0 && x.get(c) == x.get(c+1)) {
-                    vert = true;
-                    horz = false;
-                }
-                else {
-                    vert = false;
-                    horz = true;
-                }
-                if(vert && between(x.get(c), x2.get(i+1), x2.get(i)) && between(y2.get(i), y.get(c+1), y.get(c))) {
+                if(between(x.get(c), x2.get(i+1), x2.get(i)) && between(y2.get(i), y.get(c+1), y.get(c))) {
                     System.out.print("Cross at ");
                     System.out.println("[ " + x.get(c) + " , " + y2.get(i) + " ]");
                     if (x.get(c) + y2.get(i) < Math.abs(location[0]) + Math.abs(location[1]) || location[0] + location[1] == 0) {
@@ -130,7 +120,7 @@ public class Prob319 {
                         location[1] = y2.get(i);
                     }
                 }
-                else if(horz && between(y.get(c), y2.get(i+1), y2.get(i)) && between(x2.get(i), x.get(c+1), x.get(c))) {
+                else if(between(y.get(c), y2.get(i+1), y2.get(i)) && between(x2.get(i), x.get(c+1), x.get(c))) {
                     System.out.print("Cross at ");
                     System.out.println("[ " + x2.get(i) + " , " + y.get(c) + " ]");
                     if (y.get(c) + x2.get(i) < Math.abs(location[0]) + Math.abs(location[1]) || location[0] + location[1] == 0) {
@@ -149,6 +139,7 @@ public class Prob319 {
     }
     
     public static boolean between (int n, int max, int min) {
+
         if (n >= min && n <= max || n <= min && n >= max)
             return true;
         else 
