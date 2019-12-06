@@ -8,52 +8,55 @@ public class Prob619 {
 	
  	public static void main (String[] args) throws IOException {
 		
-		String[] listing = reader();
-        int size = listing.length;
-        int count = 0;
+		String[] listing = reader(); //each line of the input file
+        int count = 0; //count will store the current number of orbit connections
+        List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
+
+        for(int i = 0; i < planets.size(); i++) {
+            count += orbits(planets, i, 0) + 1; //the orbits method recursively checks for if there are any indirect connections and totals them.
+        }
+        System.out.println(count); //the answer
+	}
+	
+    public static int orbits (List<List<String>> planets, int i, int subcount) {
+        //i = current planet we are checking for indirect orbits; c = current planet we are checking planet i against.
+        for(int c = 0; c < planets.size(); c++) {
+            if (planets.get(i).get(0).equals(planets.get(c).get(1))) { //https://stackoverflow.com/questions/658953/if-statement-with-string-comparison-fails
+                subcount += 1;
+                i = c; 
+                break;
+            }
+            else if (c == planets.size()-1) 
+                return subcount;
+        }
+        return orbits(planets, i, subcount);
+    }
+    
+    public static List<List<String>> formatter (String [] listing) {
+
+        String[] splitList = splitter(listing);
+        List<List<String>> planets = new ArrayList<List<String>>(listing.length); //https://stackoverflow.com/questions/16956720/how-to-create-an-2d-arraylist-in-java
+
+        for(int i = 0; i < listing.length * 2; i += 2) {
+            planets.add(new ArrayList<String>());
+            planets.get(i/2).add(splitList[i]);
+            planets.get(i/2).add(splitList[i+1]);
+
+        }
+        return planets;
+    }
+
+    public static String[] splitter (String [] listing) {
+        
         String line = "";
 		for (int i = 0; i < listing.length; i++) {
 			line = line.concat(listing[i]);
             line = line.concat(")");
         }
 		
-        String[] splitList = line.split("\\)");
-
-//      https://stackoverflow.com/questions/16956720/how-to-create-an-2d-arraylist-in-java
-       
-        List<List<String>> planets = new ArrayList<List<String>>(size); 
-
-        for(int i = 0; i < size*2; i += 2) {
-            planets.add(new ArrayList<String>());
-            planets.get(i/2).add(splitList[i]);
-            planets.get(i/2).add(splitList[i+1]);
-
-        }
-
-        for(int i = 0; i < planets.size(); i++) {
-            count += orbits(planets, i, 0) + 1;
-        }
-
-        System.out.println(count);
-	}
-	
-    public static int orbits (List<List<String>> planets, int i, int subcount) {
-        
-        for(int c = 0; c < planets.size(); c++) {
-            if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
-                subcount += 1;
-                i = c; //might be a problem with using the proper index
-                System.out.print(planets.get(c).get(1) + " is connected to " + planets.get(i).get(0) + " ");
-                break;
-            }
-            else if (c == planets.size()-1) {
-                System.out.println("---");
-                return subcount;
-            }
-        }
-        return orbits(planets, i, subcount);
+        String[] splitList = line.split("\\)"); //https://stackoverflow.com/questions/15236108/groovy-java-split-string-on-parentheses
+        return splitList;
     }
-		// minus a couple changes, the reader class is copied from Ian's github.
 
 	public static String[] reader () throws IOException {
 		
