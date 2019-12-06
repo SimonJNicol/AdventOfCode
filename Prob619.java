@@ -31,20 +31,19 @@ public class Prob619 {
         }
 
         for(int i = 0; i < planets.size(); i++) {
-            count += orbits(planets, i, 0);
+            count += orbits(planets, i, 0) + 1;
         }
 
         System.out.println(count);
 	}
 	
     public static int orbits (List<List<String>> planets, int i, int subcount) {
-        subcount += 1;
         
         for(int c = 0; c < planets.size(); c++) {
             if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
                 subcount += 1;
                 i = c; //might be a problem with using the proper index
-                System.out.print(planets.get(i).get(0) + " is connected to " + planets.get(c).get(1) + " ");
+                System.out.print(planets.get(c).get(1) + " is connected to " + planets.get(i).get(0) + " ");
                 break;
             }
             else if (c == planets.size()-1) {
