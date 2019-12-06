@@ -4,27 +4,43 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Prob619 {
+public class Prob619p2 {
 	
  	public static void main (String[] args) throws IOException {
 		
 		String[] listing = reader(); //each line of the input file
         int count = 0; //count will store the current number of orbit connections
         List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
+        List<List<String>> paths = new ArrayList<List<String>>(2);
+        paths.add(new ArrayList<String>());
+        paths.add(new ArrayList<String>()); //2d arrays need to be instantiated in java, see comment in formatter method
 
         for(int i = 0; i < planets.size(); i++) {
-            count += orbits(planets, i, 0) + 1; //the orbits method recursively checks for if there are any indirect connections and totals them.
+            count += orbits(planets, paths, i, 0, -1) + 1; //the orbits method recursively checks for if there are any indirect connections and totals them.
         }
-        System.out.println(count); //the answer
+        System.out.println(count); //Part 1's answer
+        System.out.println("Santa's Path: " + paths.get(0));
+        System.out.println("Our Path: " + paths.get(1));
+        count = connector(paths);
+        System.out.println(count); //Part 2's answer
+
+        
 	}
 	
-    public static int orbits (List<List<String>> planets, int i, int subcount) {
+    public static int orbits (List<List<String>> planets, List<List<String>> paths, int i, int subcount, int tracker) {
         //i = current planet we are checking for indirect orbits; c = current planet we are checking planet i against.
         for(int c = 0; c < planets.size(); c++) {
+
+            if (planets.get(i).get(1).equals("SAN")) 
+                tracker = 0;
+            else if (planets.get(i).get(1).equals("YOU"))
+                tracker = 1;
             if (planets.get(i).get(0).equals(planets.get(c).get(1))) { //https://stackoverflow.com/questions/658953/if-statement-with-string-comparison-fails
-                System.out.print(planets.get(c).get(1) + " is connected to " + planets.get(i).get(0) + " ");
+                System.out.print(planets.get(i).get(0) + " is connected to " + planets.get(c).get(0) + " ");
                 subcount += 1;
                 i = c; 
+                if (tracker != -1)
+                    paths.get(tracker).add(planets.get(c).get(0));
                 break;
             }
             else if (c == planets.size()-1) {
@@ -32,7 +48,7 @@ public class Prob619 {
                 return subcount;
             }
         }
-        return orbits(planets, i, subcount);
+        return orbits(planets, paths, i, subcount, tracker);
     }
     
     public static List<List<String>> formatter (String [] listing) {
@@ -60,6 +76,23 @@ public class Prob619 {
         String[] splitList = line.split("\\)"); //https://stackoverflow.com/questions/15236108/groovy-java-split-string-on-parentheses
         return splitList;
     }
+
+    public static int connector (List<List<String>> paths) {
+        int sizeZero = paths.get(0).size();
+        int sizeOne = paths.get(1).size();
+        int distance = 0;
+        for (int i = 0; i < sizeZero; i++) {
+            for (int c = 0; c < sizeOne; c++) {
+                if (paths.get(1).get(c).equals(paths.get(0).get(i)))
+                    System.out.println("Paths intersect at " + paths.get(1).get(c));
+                    if (distance > c + i || distance == 0)
+                        distance =  c + i;
+            }
+        }
+        return distance; // distance is super broke... 
+    }
+
+    //How to fix connector: pass the intersection point to a function which recursively finds the path for both you and santa to that point similar to how you did part 1
 
 	public static String[] reader () throws IOException {
 		
