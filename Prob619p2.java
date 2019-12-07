@@ -8,7 +8,7 @@ public class Prob619p2 {
 	
  	public static void main (String[] args) throws IOException {
 		
-		String[] listing = reader(); //each line of the input file
+	String[] listing = reader(); //each line of the input file
         int count = 0; //count will store the current number of orbit connections
         List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
         List<List<String>> paths = new ArrayList<List<String>>(3);
