@@ -81,6 +81,10 @@ public class Prob619p2 {
     }
 
     public static int connector (List<List<String>> planets, List<List<String>> paths, int i, int distance) {
+	// the connector subroutine is attempting to do the same recursive check as orbits, but, once it finds a planet 
+	// which is common to SAN's path and YOU's path, it tells reverseCon to recursively find the distance from
+	// the common planet to SAN and then to YOU. Then the smallest of these values is stored within main. It needs some
+	// work though...
         distance++;
         for (int c = 0; c < planets.size(); c++) {
             if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
@@ -105,6 +109,7 @@ public class Prob619p2 {
     }
 
     public static int reverseCon (List<List<String>> planets, List<List<String>> paths, int i, int distance) {
+	//see connector comments
         distance++;
         for (int c = 0; c < planets.size(); c++) {
             if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
