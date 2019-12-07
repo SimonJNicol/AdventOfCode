@@ -11,20 +11,23 @@ public class Prob619p2 {
 		String[] listing = reader(); //each line of the input file
         int count = 0; //count will store the current number of orbit connections
         List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
-        List<List<String>> paths = new ArrayList<List<String>>(2);
+        List<List<String>> paths = new ArrayList<List<String>>(3);
         paths.add(new ArrayList<String>());
         paths.add(new ArrayList<String>()); //2d arrays need to be instantiated in java, see comment in formatter method
 
-        for(int i = 0; i < planets.size(); i++) {
+        for(int i = 0; i < planets.size(); i++)
             count += orbits(planets, paths, i, 0, -1) + 1; //the orbits method recursively checks for if there are any indirect connections and totals them.
-        }
-        System.out.println(count); //Part 1's answer
+        
+        System.out.println("The number of direct and indirect orbitals is: " + count); //Part 1's answer
+        count = 0;
         System.out.println("Santa's Path: " + paths.get(0));
         System.out.println("Our Path: " + paths.get(1));
-        count = connector(paths);
-        System.out.println(count); //Part 2's answer
-
-        
+        paths.add(intersections(paths.get(0), paths.get(1)));
+        System.out.println("Common elements between paths: " + paths.get(2));
+        for(int i = 0; i < planets.size(); i++)
+            if (connector(planets, paths, i, 0) < count || count == 0)
+                count = connector(planets, paths, i, 0);
+        System.out.println("Number of orbitals between YOU and SAN: " + count + " //BROKEN"); //Part 2's answer
 	}
 	
     public static int orbits (List<List<String>> planets, List<List<String>> paths, int i, int subcount, int tracker) {
@@ -77,22 +80,67 @@ public class Prob619p2 {
         return splitList;
     }
 
-    public static int connector (List<List<String>> paths) {
-        int sizeZero = paths.get(0).size();
-        int sizeOne = paths.get(1).size();
-        int distance = 0;
-        for (int i = 0; i < sizeZero; i++) {
-            for (int c = 0; c < sizeOne; c++) {
-                if (paths.get(1).get(c).equals(paths.get(0).get(i)))
-                    System.out.println("Paths intersect at " + paths.get(1).get(c));
-                    if (distance > c + i || distance == 0)
-                        distance =  c + i;
+    public static int connector (List<List<String>> planets, List<List<String>> paths, int i, int distance) {
+        distance++;
+        for (int c = 0; c < planets.size(); c++) {
+            if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
+                distance += 1;
+                i = c;
+//                System.out.println("Hit");
+                for(int k = 0; k < paths.get(2).size(); k++) {
+                    if (planets.get(i).get(1).equals(paths.get(2).get(k))) {
+//                        System.out.println("PATH TO SAN FOUND"); 
+                        return reverseCon(planets, paths, i, distance);
+                    }
+                }
+            break;
+            }
+
+            if (c == planets.size()-1) { 
+//                System.out.println("SAN NOT FOUND");
+                return 0;
             }
         }
-        return distance; // distance is super broke... 
+        return connector(planets, paths, i, distance);
     }
 
-    //How to fix connector: pass the intersection point to a function which recursively finds the path for both you and santa to that point similar to how you did part 1
+    public static int reverseCon (List<List<String>> planets, List<List<String>> paths, int i, int distance) {
+        distance++;
+        for (int c = 0; c < planets.size(); c++) {
+            if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
+                distance += 1;
+                i = c;
+//                System.out.println("Hit");
+                for(int k = 0; k < paths.get(2).size(); k++) {
+                    if (planets.get(i).get(1).equals(paths.get(2).get(k))) {
+//                        System.out.println("PATH TO SAN FOUND"); 
+                        return reverseCon(planets, paths, i, distance);
+                    }
+                }
+                break;
+            }
+
+            if (c == planets.size()-1) { 
+//                System.out.println("SAN NOT FOUND");
+                return 0;
+            }
+        }
+        return reverseCon(planets, paths, i, distance);
+    }
+
+    public static List<String> intersections (List<String> a, List<String> b) {       
+        List<String> temp = new ArrayList<String>();
+        for(int i = 0; i < a.size(); i++) {
+            for(int c = 0; c < b.size(); c++) {
+                if (a.get(i).equals(b.get(c))) {
+                    temp.add(b.get(c));
+//                    System.out.println("Paths intersect at " + b.get(c));
+//                    System.out.println(temp);
+                }
+            }
+        }
+        return temp;
+    }
 
 	public static String[] reader () throws IOException {
 		
