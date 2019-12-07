@@ -8,14 +8,16 @@ public class Prob619 {
 	
  	public static void main (String[] args) throws IOException {
 		
-		String[] listing = reader(); //each line of the input file
+	String[] listing = reader(); //each line of the input file
         int count = 0; //count will store the current number of orbit connections
         List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
 
         for(int i = 0; i < planets.size(); i++) {
-            count += orbits(planets, i, 0) + 1; //the orbits method recursively checks for if there are any indirect connections and totals them.
+        	count += orbits(planets, i, 0) + 1; //the orbits method recursively checks for if there are any indirect connections and totals them.
         }
+		
         System.out.println(count); //the answer
+		
 	}
 	
     public static int orbits (List<List<String>> planets, int i, int subcount) {
@@ -28,6 +30,7 @@ public class Prob619 {
             }
             else if (c == planets.size()-1) 
                 return subcount;
+		
         }
         return orbits(planets, i, subcount);
     }
@@ -38,10 +41,9 @@ public class Prob619 {
         List<List<String>> planets = new ArrayList<List<String>>(listing.length); //https://stackoverflow.com/questions/16956720/how-to-create-an-2d-arraylist-in-java
 
         for(int i = 0; i < listing.length * 2; i += 2) {
-            planets.add(new ArrayList<String>());
-            planets.get(i/2).add(splitList[i]);
-            planets.get(i/2).add(splitList[i+1]);
-
+        	planets.add(new ArrayList<String>());
+        	planets.get(i/2).add(splitList[i]);
+         	planets.get(i/2).add(splitList[i+1]);
         }
         return planets;
     }
