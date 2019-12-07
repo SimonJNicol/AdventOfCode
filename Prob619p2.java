@@ -10,8 +10,8 @@ public class Prob619p2 {
 		
 	String[] listing = reader(); //each line of the input file
         int count = 0; //count will store the current number of orbit connections
-        List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
-        List<List<String>> paths = new ArrayList<List<String>>(3);
+        List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set planets. planets.get(n).get(0) stores orbitted and planets.get(n).get(1) stores orbitting
+        List<List<String>> paths = new ArrayList<List<String>>(3); //paths[0] stores SAN's path, path[1] stores YOU's path, and path[2] stores the common elements between them.
         paths.add(new ArrayList<String>());
         paths.add(new ArrayList<String>()); //2d arrays need to be instantiated in java, see comment in formatter method
 
@@ -22,7 +22,7 @@ public class Prob619p2 {
         count = 0;
         System.out.println("Santa's Path: " + paths.get(0));
         System.out.println("Our Path: " + paths.get(1));
-        paths.add(intersections(paths.get(0), paths.get(1)));
+        paths.add(intersections(paths.get(0), paths.get(1))); //instantiating path[2] now that 1 and 2 have been populated.
         System.out.println("Common elements between paths: " + paths.get(2));
         for(int i = 0; i < planets.size(); i++)
             if (connector(planets, paths, i, 0) < count || count == 0)
@@ -134,6 +134,7 @@ public class Prob619p2 {
     }
 
     public static List<String> intersections (List<String> a, List<String> b) {       
+	// determines if List a and List b share any common elements
         List<String> temp = new ArrayList<String>();
         for(int i = 0; i < a.size(); i++) {
             for(int c = 0; c < b.size(); c++) {
