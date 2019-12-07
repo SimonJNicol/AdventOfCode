@@ -18,7 +18,7 @@ public class Prob419 {
 	public static String reader () throws IOException {
         
 		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
-     	String line = br.readLine();
+     		String line = br.readLine();
 		return line;
         
 	}
