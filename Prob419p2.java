@@ -16,9 +16,10 @@ public class Prob419p2 {
 	public static String reader () throws IOException {
         
 		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
-     	String line = br.readLine();
+     		String line = br.readLine();
 		return line;
-        
+        	//since input was the only line i opted for this reader class to save space and runtime.
+		//only grabs one line of file per call
 	}
 
     public static int checker (String line) {
