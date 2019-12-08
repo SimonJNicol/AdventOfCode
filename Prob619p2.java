@@ -8,10 +8,10 @@ public class Prob619p2 {
 	
  	public static void main (String[] args) throws IOException {
 		
-	String[] listing = reader(); //each line of the input file
+		String[] listing = reader(); //each line of the input file
         int count = 0; //count will store the current number of orbit connections
-        List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set planets. planets.get(n).get(0) stores orbitted and planets.get(n).get(1) stores orbitting
-        List<List<String>> paths = new ArrayList<List<String>>(3); //paths[0] stores SAN's path, path[1] stores YOU's path, and path[2] stores the common elements between them.
+        List<List<String>> planets = formatter(listing); //formats the input file into a 2d array of each set of orbitting planets.
+        List<List<String>> paths = new ArrayList<List<String>>(3);
         paths.add(new ArrayList<String>());
         paths.add(new ArrayList<String>()); //2d arrays need to be instantiated in java, see comment in formatter method
 
@@ -22,12 +22,9 @@ public class Prob619p2 {
         count = 0;
         System.out.println("Santa's Path: " + paths.get(0));
         System.out.println("Our Path: " + paths.get(1));
-        paths.add(intersections(paths.get(0), paths.get(1))); //instantiating path[2] now that 1 and 2 have been populated.
+        paths.add(intersections(paths.get(0), paths.get(1)));
         System.out.println("Common elements between paths: " + paths.get(2));
-        for(int i = 0; i < planets.size(); i++)
-            if (connector(planets, paths, i, 0) < count || count == 0)
-                count = connector(planets, paths, i, 0);
-        System.out.println("Number of orbitals between YOU and SAN: " + count + " //BROKEN"); //Part 2's answer
+        System.out.println("Number of orbitals between YOU and SAN: " + connector(paths)); //Part 2's answer
 	}
 	
     public static int orbits (List<List<String>> planets, List<List<String>> paths, int i, int subcount, int tracker) {
@@ -80,61 +77,18 @@ public class Prob619p2 {
         return splitList;
     }
 
-    public static int connector (List<List<String>> planets, List<List<String>> paths, int i, int distance) {
-	// the connector subroutine is attempting to do the same recursive check as orbits, but, once it finds a planet 
-	// which is common to SAN's path and YOU's path, it tells reverseCon to recursively find the distance from
-	// the common planet to SAN and then to YOU. Then the smallest of these values is stored within main. It needs some
-	// work though...
-        distance++;
-        for (int c = 0; c < planets.size(); c++) {
-            if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
-                distance += 1;
-                i = c;
-//                System.out.println("Hit");
-                for(int k = 0; k < paths.get(2).size(); k++) {
-                    if (planets.get(i).get(1).equals(paths.get(2).get(k))) {
-//                        System.out.println("PATH TO SAN FOUND"); 
-                        return reverseCon(planets, paths, i, distance);
-                    }
-                }
-            break;
-            }
-
-            if (c == planets.size()-1) { 
-//                System.out.println("SAN NOT FOUND");
-                return 0;
-            }
+    public static int connector (List<List<String>> paths) {
+        int count = 0;
+        for(int i = 0; i < paths.get(0).size(); i++) {
+            if(paths.get(0).get(i).equals(paths.get(2).get(0)))
+                count += i;
+            if(paths.get(1).get(i).equals(paths.get(2).get(0)))
+                count += i;
         }
-        return connector(planets, paths, i, distance);
-    }
-
-    public static int reverseCon (List<List<String>> planets, List<List<String>> paths, int i, int distance) {
-	//see connector comments
-        distance++;
-        for (int c = 0; c < planets.size(); c++) {
-            if (planets.get(i).get(0).equals(planets.get(c).get(1))) {
-                distance += 1;
-                i = c;
-//                System.out.println("Hit");
-                for(int k = 0; k < paths.get(2).size(); k++) {
-                    if (planets.get(i).get(1).equals(paths.get(2).get(k))) {
-//                        System.out.println("PATH TO SAN FOUND"); 
-                        return reverseCon(planets, paths, i, distance);
-                    }
-                }
-                break;
-            }
-
-            if (c == planets.size()-1) { 
-//                System.out.println("SAN NOT FOUND");
-                return 0;
-            }
-        }
-        return reverseCon(planets, paths, i, distance);
+        return count + 2; //the first two orbitals which SAN and YOU are connected to are left out of the list, so I add two here.
     }
 
     public static List<String> intersections (List<String> a, List<String> b) {       
-	// determines if List a and List b share any common elements
         List<String> temp = new ArrayList<String>();
         for(int i = 0; i < a.size(); i++) {
             for(int c = 0; c < b.size(); c++) {
