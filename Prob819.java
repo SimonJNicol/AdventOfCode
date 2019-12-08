@@ -21,7 +21,8 @@ public class Prob819 {
         int count12 = 0;
 
         for(int i = 0; i < listing.length; i++) { 
-            for(int k = 0; k < 25; k++) {
+            
+            for(int k = 0; k < listing[i].length(); k++) {
                 if(listing[i].charAt(k) == '0') {
                     n0++;
                 }
@@ -35,18 +36,19 @@ public class Prob819 {
                     System.out.println("Unknown pixel encountered. ###ERROR###");
                 }
             }
-
-            if (i % 6 == 0) {
-                
+            
+            if (i % 6 == 5) {
                 if (n0 < count0 || count0 == 0) {
                     count0 = n0;
                     nLayer = i/6;
                     count12 = n1 * n2;
                 }
-
+                n0 = 0;
+                n1 = 0;
+                n2 = 0;
             }
         }
-
+        
         return count12;
     }
 
