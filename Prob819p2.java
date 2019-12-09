@@ -84,20 +84,16 @@ public class Prob819p2 {
        				i++;
 			}
 		}
-        i = 0;
         
         String[] formattedList = new String[listing.length()/25];
         for (int c = 0; c < formattedList.length; c++)
             formattedList[c] = ""; //must initialize each string to avoid null pointer exception
         for(int c = 0; c < listing.length(); c++) { //creates lines of 25 character length for each row of the screen
-            if(i > 24) {
-                i = 0;
+            formattedList[k] = formattedList[k].concat(String.valueOf(listing.charAt(c))); 
+            if(c % 25 == 24) {
                 k++;
             }
-            formattedList[k] = formattedList[k].concat(String.valueOf(listing.charAt(c))); 
-            i++;
         }
-		
 		return formattedList;
 	}
 }
