@@ -7,24 +7,23 @@ public class Prob819p2 {
  	public static void main (String[] args) throws IOException {
 
         String[] listing = reader();
-        String[] message = new String[6];
-        int[] countAndLayer = verifier(listing); //count[0] = # of 1s * # of 2s on layer & count[2] = layer #
-        System.out.println(countAndLayer[0]);
+        System.out.println(verifier(listing));
         for (int i = 0; i < 6; i++)
-            System.out.println(render(listing, countAndLayer[1], i));
-    
+            System.out.println(render(listing, i));
+
     }
 
-    public static String render (String[] listing, int layer, int i) {
+    public static String render (String[] listing, int i) {
         return listing[i];
     }
-    public static int[] verifier (String[] listing) {
+
+    public static int verifier (String[] listing) {
 
         int currentN0 = 0;
         int n1 = 0;
         int n2 = 0;
         int lowestN0 = 0;
-        int[] countAndLayer = new int[] {0,0}; //see comment in main
+        int count = 0;
 
         for(int i = 0; i < listing.length; i++) { 
             
@@ -46,8 +45,7 @@ public class Prob819p2 {
             if (i % 6 == 5) {
                 if (currentN0 < lowestN0 || lowestN0 == 0) {
                     lowestN0 = currentN0;
-                    countAndLayer[1] = i/6;
-                    countAndLayer[0] = n1 * n2;
+                    count = n1 * n2;
                 }
                 currentN0 = 0;
                 n1 = 0;
@@ -55,7 +53,7 @@ public class Prob819p2 {
             }
         }
         
-        return countAndLayer;
+        return count;
     }
 
     public static String[] reader () throws IOException {
