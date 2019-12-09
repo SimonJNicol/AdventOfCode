@@ -5,16 +5,27 @@ import java.util.Arrays;
 public class Prob819p2 {
 	
  	public static void main (String[] args) throws IOException {
-
+        
         String[] listing = reader();
         System.out.println(verifier(listing));
-        for (int i = 0; i < 6; i++)
-            System.out.println(render(listing, i));
+        for (int i = 0; i < 6; i++) {
+            for(int c = 0; c < 25; c++) {
+                System.out.print(render(listing, i, c));
+            }
+            System.out.println();
+        }
 
     }
 
-    public static String render (String[] listing, int i) {
-        return listing[i];
+    public static char render (String[] listing, int i, int c) {
+         
+        switch(listing[i].charAt(c)) {
+            case '0':
+                return '0';
+            case '1':
+                return '1';
+        }
+        return render(listing, i+6, c);
     }
 
     public static int verifier (String[] listing) {
