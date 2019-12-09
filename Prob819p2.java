@@ -21,9 +21,9 @@ public class Prob819p2 {
          
         switch(listing[i].charAt(c)) {
             case '0':
-                return '0';
+                return ' ';
             case '1':
-                return '1';
+                return '$';
         }
         return render(listing, i+6, c); //i+6 searches the same row and column of pixel, but the next layer 
     }
