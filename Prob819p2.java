@@ -7,17 +7,17 @@ public class Prob819p2 {
  	public static void main (String[] args) throws IOException {
         
         String[] listing = reader();
-        System.out.println(verifier(listing));
-        for (int i = 0; i < 6; i++) {
-            for(int c = 0; c < 25; c++) {
-                System.out.print(render(listing, i, c));
+        System.out.println(verifier(listing)); //part 1
+        for (int i = 0; i < 6; i++) { //evaluates each row of pixels
+            for(int c = 0; c < 25; c++) { //evaluates each column of pixels
+                System.out.print(render(listing, i, c)); //returns first '0' or '1' found for each pixel.
             }
             System.out.println();
         }
 
     }
 
-    public static char render (String[] listing, int i, int c) {
+    public static char render (String[] listing, int i, int c) { //part 2 code
          
         switch(listing[i].charAt(c)) {
             case '0':
@@ -25,10 +25,10 @@ public class Prob819p2 {
             case '1':
                 return '1';
         }
-        return render(listing, i+6, c);
+        return render(listing, i+6, c); //i+6 searches the same row and column of pixel, but the next layer 
     }
 
-    public static int verifier (String[] listing) {
+    public static int verifier (String[] listing) { //part 1 code
 
         int currentN0 = 0;
         int n1 = 0;
@@ -53,7 +53,7 @@ public class Prob819p2 {
                 }
             }
             
-            if (i % 6 == 5) {
+            if (i % 6 == 5) { //seperates and resets each layer count
                 if (currentN0 < lowestN0 || lowestN0 == 0) {
                     lowestN0 = currentN0;
                     count = n1 * n2;
@@ -67,7 +67,7 @@ public class Prob819p2 {
         return count;
     }
 
-    public static String[] reader () throws IOException {
+    public static String[] reader () throws IOException { //input code, formats input into 25 character long lines
 		
 		int max_lines = 16384;
    		String[] temp = new String[max_lines];
