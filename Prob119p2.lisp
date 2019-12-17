@@ -19,8 +19,6 @@
 
 (with-open-file (in "input.txt") ;from the github link at the top
     (loop for line = (read-line in nil) while line do 
-;        (incf fuelRequired (calcFuel (parse-integer line)))
-        (calcFuel2 (calcFuel (parse-integer line)))
-        )) ;incf is the same as +=
+        (calcFuel2 (parse-integer line)))) ;incf is the same as +=
 
 (format t "Part 2, fuel required: ~a~%" additionalFuel)
