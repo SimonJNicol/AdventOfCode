@@ -1,7 +1,6 @@
 (defvar count 0)
 (defun is-triangle (a b c)
-    (if 
-        (> (* (+ a b c) (- (+ a b c) a) (- (+ a b c) b) (- (+ a b c) c)) 0)
+    (if (> (* (/ (+ a b c) 2) (- (/ (+ a b c) 2) a) (- (/ (+ a b c) 2) b) (- (/ (+ a b c) 2) c)) 0)
         (return-from is-triangle 1)
         (return-from is-triangle 0)))
 
